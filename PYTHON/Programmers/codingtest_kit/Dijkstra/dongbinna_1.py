@@ -1,5 +1,5 @@
 # 도시 개수 : N, 통로 개수 : M, 메시지 보내고자 하는 도시 : C
-
+INF=1e9
 n, m, c = map(int, input().split())
 
 road =[ [] for i in range(n+1)]
