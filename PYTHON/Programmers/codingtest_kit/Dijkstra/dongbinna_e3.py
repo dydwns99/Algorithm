@@ -18,7 +18,7 @@ for _ in range(m):
 def dijkstra(start):
     hq=[]
     distance[start]=0
-    heapq.heapify(hq, (0, start))
+    heapq.heappush(hq, (0, start))
     while hq:
         #dist : now 노드가 보유한 거리
         dist, now = heapq.heappop(hq)

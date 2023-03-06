@@ -12,7 +12,7 @@ import heapq
 def dijkstra(start):
     hq=[]
     distance[start]=0
-    heapq.heapify(hq,(0,start))
+    heapq.heappush(hq,(0,start))
     while hq:
         # dist : now노드 안에 있는 수
         dist, now = heapq.heappop(hq)
@@ -24,7 +24,7 @@ def dijkstra(start):
             if distance[i[0]] > cost:
                 distance[i[0]]=cost
             heapq.heappush(hq,(cost,i[0]))
-
+dijkstra(c)
 count =0
 max_distance=0
 for d in distance:
