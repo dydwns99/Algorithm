@@ -1,50 +1,50 @@
-# 섬 연결하기
 import heapq
+def solution(n, costs):
+    answer = 0
+    costs.sort(key = lambda x: x[2]) 
+    link = set([costs[0][0]])
 
-num=0
-INF=int(1e9)
-graph=[]
-distance=[]
-
- # 다익스트라 알고리즘
-def dijkstra(start):
-    hq=[]
-    global distance
-    distance=[INF]*num
-    distance[start]=0
-    line=[0]*num
-    heapq.heappush(hq,(0, start))
-
-    while hq:
-        dist, node = heapq.heappop(hq)
-
-        if distance[node] < dist:
-            continue
-        for i in graph[node]:
-            cost = dist + i[1]
-            if distance[i[0]]>cost:
-                distance[i[0]]=cost
-                line[i[0]]=i[1]
-                heapq.heappush(hq, (cost,i[0]))
-    # print(line)
-    return line
-    # print("사용한 길 : ",line)
-def solution(n,costs):
-    
-    # 최소비용으로 모든 섬이 서로 통행 가능하도록 최소비용 리턴
-    global num
-    num = n
-    global graph
-    graph = [[]*3 for i in range(num)]
-    
-    for cost in costs:
-        graph[cost[0]].append((cost[1],cost[2]))
-        graph[cost[1]].append((cost[0],cost[2]))
-    # print("graph : ", graph)
-    answer = INF
-    for i in range(n):
-        answer = min(answer, sum(dijkstra(i)))
-
+    # Kruskal 알고리즘으로 최소 비용 구하기
+    while len(link) != n:
+        for v in costs:
+            if v[0] in link and v[1] in link:
+                continue
+            if v[0] in link or v[1] in link:
+                link.update([v[0], v[1]])
+                answer += v[2]
+                break
+                
     return answer
+
+#크루스칼 알고리즘
+
+# #부모 노드를 찾아줌
+# def ancestor(node, parents):
+#     if parents[node] == node:
+#         return node
+#     else:
+#         return ancestor(parents[node], parents)
+
+# def solution(n, costs):
+#     answer = 0
+#     edges = sorted([(x[2], x[0], x[1]) for x in costs])
+#     parents = [i for i in range(n)]
+#     bridges = 0
+#     for w, f, t in edges:
+#         #부모가 같지 않다면 -> 같은 사이클이 아님
+#         if ancestor(f, parents) != ancestor(t, parents):
+#             answer += w
+#             # 부모 관계로 설정해 둘을 그룹으로 묶어줌
+#             parents[ancestor(f, parents)] = t
+#             bridges += 1
+#         if bridges == n - 1:
+#             break
+#     print("parents : ", parents)
+#     return answer
+
 print(solution(4,[[0,1,1],[0,2,2],[1,2,5],[1,3,1],[2,3,8]]))
 
+
+        
+
+    
