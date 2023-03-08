@@ -1,24 +1,33 @@
-#  A 와 B 행렬이 주어지고 A 에 행렬에 3x3 모든 원소를 몇번 바꾸면 B 가 된다
-import heapq
-def solution():
-    N, M = map(int,input().split())
-    A=[]
-    B=[]
-    for _ in range(2*N):
-        if _<N:
-            A.append(input())
-        else:
-            B.append(input())
-    # 멀쩡한 거 다음 부터 바꿈
-    for i in range(N-2):
-        if A[i]!=B[i]:
-            pass
-    print(A)
-    print(B)
+# 행렬
+n, m = map(int,input().split())
+a=[]
+b=[]
+for i in range(n):
+    arr=list(map(int,input()))
+    a.append(arr)
+for j in range(n):
+    arr=list(map(int,input()))
+    b.append(arr)
+count=0
 
-array=[[4,0],[1,32],[2,74]]
-arr=[]
-heapq.heapify(array)
-print(heapq.heappop(array))
-print(heapq.heappop(array))
-print(heapq.heappop(array))
+def change(i,j,array):
+    for x in range(i,i+3):
+        for y in range(j,j+3):
+            if array[x][y]==0:
+                array[x][y]=1
+            else:
+                array[x][y]=0
+
+# 값이 달라진 좌표를 기록하고
+for i in range(n-2):
+    for j in range(m-2):
+        if a[i][j]!=b[i][j]:
+            change(i,j,a)
+            count+=1
+
+for i in range(n):
+    for j in range(m):
+        if a[i][j]!=b[i][j]:
+            count=-1
+print(count)
+
