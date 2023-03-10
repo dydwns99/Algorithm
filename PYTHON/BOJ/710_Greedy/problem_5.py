@@ -1,34 +1,44 @@
 # 2138번 전구와 스위치
-n = int(input())
-a=list(map(int,input()))
-b=list(map(int,input()))
 
-def tap(swit,idx):
-    swit[idx]=1-swit[idx]
-# 누른 표시를 함
-count=0
-    # print("check ",check)
-for i in range(n):
+# 얕은 복사(shallow copy) - a is swt 는 False 지만 , 만약 a안에 객체가 있다면 그 객체들은 메모리 값이 같음
+# 깊은 복사(deep copy) - import copy     copy.deepcopy() -> 내부 객체까지 메모리 주소 바꿈
 
-    if i==0:
-        if a[i]!=b[i]:
-            tap(a,i)
-            tap(a,i+1)
-            count+=1   
-            
-    elif i==n-1:
-        if a[i-1]!=b[i-1]:
-            tap(a,i-1)
-            tap(a,i)
-            count+=1   
 
-    elif 1<=i<=n-2:
-        if a[i-1]!=b[i-1]:
-            tap(a,i-1)
-            tap(a,i)
-            tap(a,i+1)  
-            count+=1       
-        
-print(count)            
+n=int(input())
+bulb = list(map(int,input()))
+target = list(map(int,input()))
+
+
+def change(A,B):
+    A_copy = A[:]
+    press=0
+    for i in range(1,n):
+        if A_copy[i-1]==B[i-1]:
+            continue
+        press+=1
+        for j in range(i-1,i+2):
+            if j<n:
+                # ... n-3 n-2 n-1, n-2 n-1, n-1 처럼 끝까지 확인하여 바꿀 수 있음
+                A_copy[j]=1-A_copy[j] 
+    if A_copy == B:
+        return press
+    else:
+        return 1e9
+res = change(bulb, target)
+
+bulb[0]=1-bulb[0]
+bulb[1]=1-bulb[1]
+
+res = min(res, change(bulb,target)+1)
+
+if res!=1e9:
+    print(res)
+else:
+    print(-1)
+
+   
+
+
+
 
 
