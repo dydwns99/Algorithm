@@ -1,16 +1,23 @@
-# 11047번 동전 0
-# n : 동전의 종류 개수 , k : 가치의 합
-n, k = map(int, input().split())
-coins=[]
+# 1931번  회의실 배정
+# n: 회의의 수
+n = int(input())
+# 회의 시작시간 , 끝나는 시간
+meetings=[]
 for i in range(n):
-    coins.append(int(input()))
-# k를 만들기 위해 필요한 동전 개수의 최솟값
-# 가격이 제일 큰 동전부터 다 써보고 초과된다면 그 다음 동전으로 써봄
-count=0
-for i in range(n-1,-1,-1):
-    # 4200//1000
-    count+=k//coins[i]
-    if k%coins[i] == 0:      
-        break
-    k=k%coins[i]
+    s,e = map(int, input().split())
+    meetings.append((s,e))
+# 최대 사용할 수 있는 회의의 최대 개수, 회의 겹치면 안됨
+
+# (1,4) (5,9) (12,14)
+# 시작이 작은 숫자 중에서 끝나는 시간 가장 작은 수
+meetings.sort(key = lambda x : (x[1],x[0]))
+print(meetings)
+# 첫 회의 끝나고 다음 회의 정할 때 
+# 현재 회의 끝나는 시간 < 다음 회의 시작시간 
+count=1
+end = meetings[0][1]
+for i in range(1, len(meetings)):
+    if end <= meetings[i][0]:
+        count+=1
+        end = meetings[i][1]
 print(count)
