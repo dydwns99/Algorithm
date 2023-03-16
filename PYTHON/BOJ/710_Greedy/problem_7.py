@@ -13,6 +13,7 @@ def solve():
         for j, c in zip(range(N-1,-1,-1),input().strip()):
             if c=='T':
                 coins[i] += (1<<j)
+    print(coins)
     answer=N*N
     # 뒤집을 수 있는 모든 경우의 수
     # 열을 바꾸는 순간 행들의 앞면, 뒷면 개수들은 이미 정해짐으로 건들 필요가 없음
