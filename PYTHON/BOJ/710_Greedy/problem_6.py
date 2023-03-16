@@ -1,25 +1,26 @@
+# 1202번  보석 도둑
 import sys
 import heapq
-
-n, k = map(int,sys.stdin.readline().split())
+# n : 보석 개수  k : 가방
+n, k = map(int, sys.stdin.readline().split())
+# m : 무게  v : 가격
 jew=[]
-for _ in range(n):
+for i in range(n):
     heapq.heappush(jew, list(map(int, sys.stdin.readline().split())))
 bags=[]
-for _ in range(k):
-    bags.append(int(sys.stdin.readline()))
+for i in range(k):
+    bags.append(int(input()))
 bags.sort()
-
-answer=0
-
-tmp_jew=[]
-# 가방을 확인
+# 상덕이가 훔칠 수 있는 보석 가격의 합의 최댓값
+tmp=[]
+ans=0
 for bag in bags:
-    # 보석이 아직 있고 가방이 작은거 부터 그 보석을 담을 수 있으면
+    # 아직 보석이 있고 가방에 담길 수 있다면 tmp에 넣음
     while jew and bag>=jew[0][0]:
-        # 일시 보석 보관함에 음수 붙여서 가격을 넣음 -> 가격 가장 큰 것이 가장 앞으로 감
-        heapq.heappush(tmp_jew, -heapq.heappop(jew)[1])
-    if tmp_jew:
-        answer -=heapq.heappop(tmp_jew)
-    elif not jew:
+        heapq.heappush(tmp, -heapq.heappop(jew)[1])
+    if tmp:
+        ans+=heapq.heappop(tmp)
+
+    if not jew:
         break
+print(-ans)
