@@ -1,5 +1,7 @@
 # 12015번  가장 긴 증가하는 부분 수열 2
 # 수열 A 의 크기
+import sys
+input = sys.stdin.readline
 n = int(input())
 # 수열 A
 cases=list(map(int, input().split()))
