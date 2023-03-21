@@ -20,7 +20,7 @@ for i in range(1,v+1):
 
 cycle = False
 
-for i in range(n):
+for i in range(v):
     a, b = map(int, input().split())
     # 사이클 발생 경우 종류
     if find_parent(parent, a)==find_parent(parent,b):
@@ -28,6 +28,7 @@ for i in range(n):
         break
     else:
         union_parent(parent,a,b)
+
 if cycle:
     print("사이클 발생")
 else:
