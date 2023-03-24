@@ -1,28 +1,31 @@
-# 다익스트라
-import heapq
+# 네트워크
 
-v, e = map(int,input().split())
+# 1 와 2 가 연결되어 있으면
+# (1, 1,  ....)
+# 아니면
+# (1, 0, ...)
 
-graph=[[] for _ in range(e)]
-for i in range(e):
-    a,b,cost = map(int, input().split())
-    graph[a].append((cost,b))
 
-INF=int(1e9)
-distance=[INF]*(v+1)
 
-def dijkstra(start):
-    hq=[]
-    distance[start]=0
-    heapq.heappush(hq,(0,start))
-    while hq:
-        # dist - 
-        dist, now = heapq.heappop(hq)
-        if distance[now] < dist:
-            continue
-        for g in graph[now]:
-            cost = dist+g[0]
-            if distance[g[1]]>cost:
-                distance[g[1]]=cost
-            heapq.heappush(hq,(cost, g[1]))
+def dfs(graph, v, visited):
+    visited[v]=True
+    for i in range(len(graph[v])):
+        if visited[i]==False and graph[v][i]==1:
+            dfs(graph,i, visited)
+
+
+
+def solution(n,computers):
+    count=0
+    visited=[False]*n
+    for i in range(n):
+        if visited[i]==False:
+            dfs(computers,i,visited)
+            count+=1
+    return count
+
+print(solution(3,[[1, 1, 0], [1, 1, 0], [0, 0, 1]]))
+        
+
+
 
