@@ -1,5 +1,6 @@
 # 14502번  연구소
 from collections import deque
+import copy
 # 벽 3개를 세운 뒤, 안전 영역 크기의 최댓값
 
 # 입력값
@@ -32,10 +33,13 @@ def bfs(x,y,lab):
 
 # 0 인 곳 3개를 골라 1로 바꿔 봄
 loc=[]
+vir=[]
 for i in range(n):
     for j in range(m):
         if real_lab[i][j]==0:
             loc.append((i,j))
+        if real_lab[i][j]==2:
+            vir.append((i,j))
 # 0 인 곳 중 3개를 고르는 모든 경우의 수를 다 따짐 -> 최대 64 x 64 x 64
 res=0
 for a in loc:
@@ -43,26 +47,27 @@ for a in loc:
         for c in loc:
             if a==b or b==c or a==c:
                 continue
-            lab=real_lab[:]
+            lab=copy.deepcopy(real_lab)
             count=0
-            # print("a",a)
-            # print("b",b)
-            # print("c",c)
+
             x1,y1 = a
             x2,y2 = b
             x3,y3 = c
             lab[x1][y1]=1
             lab[x2][y2]=1
             lab[x3][y3]=1
-            # bfs(0,0,lab)
+            for v in vir:
+                i,r = v
+                bfs(i,r,lab)
             # for la in lab:
             #     print(la)
+            
+            for t in range(n):
+                for k in range(m):
+                    if lab[t][k]==0:
+                        count+=1
+            # print("count : ",count)
             # print("------")
-            # for t in range(n):
-            #     for k in range(m):
-            #         if lab[t][k]==0:
-            #             count+=1
-
             res=max(res,count)
 print(res)
 #   그 다음 2인 곳을 찾고
