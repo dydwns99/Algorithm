@@ -1,3 +1,4 @@
+
 # 14502번  연구소
 from collections import deque
 import copy
@@ -10,9 +11,7 @@ n, m = map(int, input().split())
 real_lab=[]
 for i in range(n):
     real_lab.append(list(map(int, input().split())))
-# 2를 발견하면 상하좌우로 1을 만듬
-# for l in real_lab:
-#     print(l)
+
 # bfs 함수
 
 dx=[-1,1,0,0]
@@ -25,11 +24,11 @@ def bfs(x,y,lab):
         for i in range(4):
             nx=dx[i]+x
             ny=dy[i]+y
-            if nx<0 or ny<0 or nx>=n or ny>=m or lab[nx][ny]==1 or lab[nx][ny]==2:
+            if nx<0 or ny<0 or nx>=n or ny>=m:
                 continue
             if lab[nx][ny]==0:
                 lab[nx][ny]=2
-            q.append((nx,ny))      
+                q.append((nx,ny))      
 
 # 0 인 곳 3개를 골라 1로 바꿔 봄
 loc=[]
@@ -49,28 +48,85 @@ for a in loc:
                 continue
             lab=copy.deepcopy(real_lab)
             count=0
-
+            # print("a",a)
+            # print("b",b)
+            # print("c",c)
             x1,y1 = a
             x2,y2 = b
             x3,y3 = c
             lab[x1][y1]=1
             lab[x2][y2]=1
             lab[x3][y3]=1
-            for v in vir:
-                i,r = v
+
+            for i,r in vir:
                 bfs(i,r,lab)
-            # for la in lab:
-            #     print(la)
-            
+
+
             for t in range(n):
                 for k in range(m):
                     if lab[t][k]==0:
                         count+=1
-            # print("count : ",count)
-            # print("------")
+
             res=max(res,count)
 print(res)
-#   그 다음 2인 곳을 찾고
-#   1을 만나기 전까지 2로 바꿈
-# 0의 개수를 세고
-# 반복하며 최대인 값을 찾암
+
+# 백준 풀이
+
+# from collections import deque
+# dx = [0,0,1,-1]
+# dy = [1,-1,0,0]
+# def bfs(a):
+#     n = len(a)
+#     m = len(a[0])
+#     b = [[0]*m for _ in range(n)]
+#     q = deque()
+#     for i in range(n):
+#         for j in range(m):
+#             b[i][j] = a[i][j]
+#             if b[i][j] == 2:
+#                 q.append((i,j))
+#     while q:
+#         x,y = q.popleft()
+#         for k in range(4):
+#             nx,ny = x+dx[k], y+dy[k]
+#             if 0 <= nx < n and 0 <= ny < m and b[nx][ny] == 0:
+#                 b[nx][ny] = 2
+#                 q.append((nx,ny))
+#     cnt = 0
+#     for i in range(n):
+#         for j in range(m):
+#             if b[i][j] == 0:
+#                 cnt += 1
+#     return cnt
+
+# n,m = map(int,input().split())
+# a = [list(map(int,input().split())) for _ in range(n)]
+# ans = 0
+# for x1 in range(n):
+#     for y1 in range(m):
+#         if a[x1][y1] != 0:
+#             continue
+#         for x2 in range(n):
+#             for y2 in range(m):
+#                 if a[x2][y2] != 0:
+#                     continue
+#                 for x3 in range(n):
+#                     for y3 in range(m):
+#                         if a[x3][y3] != 0:
+#                             continue
+#                         if x1 == x2 and y1 == y2:
+#                             continue
+#                         if x1 == x3 and y1 == y3:
+#                             continue
+#                         if x2 == x3 and y2 == y3:
+#                             continue
+#                         a[x1][y1] = 1
+#                         a[x2][y2] = 1
+#                         a[x3][y3] = 1
+#                         cur = bfs(a)
+#                         if ans < cur:
+#                             ans = cur
+#                         a[x1][y1] = 0
+#                         a[x2][y2] = 0
+#                         a[x3][y3] = 0
+# print(ans)
