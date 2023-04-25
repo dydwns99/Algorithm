@@ -5,27 +5,18 @@ def solution(clothes):
 
     # 의상종류를 키 값으로하고
     # 의상 이름을 value값으로 받음
-    box = dict()
+    count=1
+    box = {}
     for c in clothes:
-        box[c[1]]=[]
-    for c in clothes:
-        box[c[1]].append(c[0])
-    # list(dict())하면 키 값만 나오는구나
-    # 우선 종류별로 나눴어
-    # 그 다음엔 가능한 조합을 만들어야되니까
-    # 각 종류의 조합을 구하고
-    comb=[]
-    for i in range(1,len(box)+1):
-        comb.append(list(combinations(list(box),i)))
-    # 그 조합주엥서 하나씩 꺼내 개수를 곱합
-    count=0
-    for com in comb: # 종류 조합이 1개일떄, 2개일때, 3개일때,
-        for co in com:
-            tmp=1
-            for c in co:
-                tmp=tmp*len(box[c])
-            count+=tmp
+        key = c[1]
+        value = c[0]
+        if key in box:
+            box[key].append(value)
+        else:
+            box[key] = [value]
+    for key in box.keys():
+        count = count * (len(box[key])+1)
 
-    return count
+    return count-1
 
 print(solution([["crow_mask", "face"], ["blue_sunglasses", "face"], ["smoky_makeup", "face"]]))
