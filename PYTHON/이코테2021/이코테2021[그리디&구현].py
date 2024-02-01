@@ -117,21 +117,37 @@
 
 # 왕실의 나이트
 # 8x8
-loc = input()
-# a를 숫자로...
+# loc = input()
+# # a를 숫자로...
 
-x,y = ord(loc[0]) - ord('a') + 1, int(loc[1])
-dx = [-1,1,-1,1,-2,2,-2,2]
-dy = [-2,-2,2,2,-1,-1,1,1]
-count=0
-# dx 먼저 or dy 먼저
-for i in range(8):
-    nx = x + dx[i]
-    ny = y + dy[i]
-    if nx<1 or ny<1 or nx>8 or ny>8:
-        continue
+# x,y = ord(loc[0]) - ord('a') + 1, int(loc[1])
+# dx = [-1,1,-1,1,-2,2,-2,2]
+# dy = [-2,-2,2,2,-1,-1,1,1]
+# count=0
+# # dx 먼저 or dy 먼저
+# for i in range(8):
+#     nx = x + dx[i]
+#     ny = y + dy[i]
+#     if nx<1 or ny<1 or nx>8 or ny>8:
+#         continue
 
-    count+=1
-print(count)
+#     count+=1
+# print(count)
 
+# 문자열 재정렬
+s = input()
+alpa = []
+num = []
+for c in s:
+    if ord(c) > 57:
+        alpa.append(c)
+    else:
+        num.append(c)
+alpa.sort()
+num.sort()
+result = alpa + num
+result = ''.join(result)
+print(result)
+
+# isalpha()
 
