@@ -1,34 +1,29 @@
-# # 11047번 동전 0
-# n, k = map(int, input().split())
-# coins=[]
-# for i in range(n):
-#     coins.append(int(input()))
-# # k를 만들기 위해 필요한 동전 개수의 최솟값
-# # 가격이 제일 큰 동전부터 다 써보고 초과된다면 그 다음 동전으로 써봄
-# count=0
-# for i in range(n-1,-1,-1):
-#     # 4200//1000
-#     count+=k//coins[i]
-#     if k%coins[i] == 0:      
-#         break
-#     k=k%coins[i]
-# print(count)
+# 동전 0
 
-# 동전 N 종류
+# n -> 동전 종류 / k -> 만들 값
+# 동전 개수 최소로 해서 k 값 만들기
+# 
 
-n, k = map(int, input().split())
-coins=[]
+n, k = map(int,input().split())
+coins = []
+
 for i in range(n):
-    coins.append(int(input()))
-# k 보다 작은 동전 부터 채워 넣음
-# coins 에서 가장 큰 동전 부터 비교해 나가야됨
-coins.reverse()
+    coin = int(input())
+    coins.append(coin)
+coins.sort(reverse=True)
+# for a in range(n):
+#     print(coins[a])
 
-num=0
-for c in coins:
-    num += k//c
-    if k % c == 0 :
+
+count = 0
+# 나머지가 0이 될 때 까지 큰 수 부터 k를 나눠줌
+for i in range(n):
+    if k == 0:
         break
-    k = k%c
-print(num)
+    if coins[i] <= k:
+        #print(k," / ", coins[i])
+        count += int(k/coins[i])
+        k = k%coins[i]
+        #print("사용한 동전 개수 ",count)
+print(count)
     
